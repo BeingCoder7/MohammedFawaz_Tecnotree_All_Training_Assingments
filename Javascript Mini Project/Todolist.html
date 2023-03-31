@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task Manager</title>
+    <style>
+      /* add some basic styling */
+      body {
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        text-align: center;
+      }
+      form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+      input[type="text"] {
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 0.25rem;
+        border: 1px solid #ccc;
+        margin-right: 0.5rem;
+        flex-grow: 1;
+      }
+      input[type="submit"] {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border-radius: 0.25rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem;
+        border-bottom: 1px solid #ccc;
+      }
+      li:last-child {
+        border-bottom: none;
+      }
+      .task-completed {
+        text-decoration: line-through;
+      }
+      .delete-button {
+        padding: 0.25rem 0.5rem;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Task Manager</h1>
+    <form>
+      <input type="text" id="task-input" placeholder="Add a task...">
+      <input type="submit" value="Add Task">
+      <input type="submit" onclick="showSavedTasks()" value="Saved Task">
+    </form>
+    <ul id="task-list"></ul>
+    <script>
+        // get the task input and task list elements
+const taskInput = document.getElementById('task-input');
+const taskList = document.getElementById('task-list');
+
+// load saved tasks from localStorage
+let savedTasks = localStorage.getItem('tasks');
+if (savedTasks) {
+  savedTasks = JSON.parse(savedTasks);
+  savedTasks.forEach(task => {
+    addTaskToList(task.text, task.completed);
+  });
+} else {
+  savedTasks = [];
+}
+
+// add a submit event listener to the task form
+const taskForm = document.querySelector('form');
+taskForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const taskText = taskInput.value.trim();
+  if (taskText) {
+    // add the task to the list and save it to localStorage
+    addTaskToList(taskText, false);
+    savedTasks.push({ text: taskText, completed: false });
+    localStorage.setItem('tasks', JSON.stringify(savedTasks));
+    taskInput.value = '';
+  }
+});
+
+// function to add a task to the list
+function addTaskToList(text, completed) {
+  const taskItem = document.createElement('li');
+  const taskCheckbox = document.createElement('input');
+  taskCheckbox.type = 'checkbox';
+  taskCheckbox.checked = completed;
+  taskCheckbox.addEventListener('change', e => {
+    // update the task status and save it to localStorage
+    const taskIndex = savedTasks.findIndex(task => task.text === text);
+    savedTasks[taskIndex].completed = e.target.checked;
+    localStorage.setItem('tasks', JSON.stringify(savedTasks));
+    if (e.target.checked) {
+      taskItem.classList.add('task-completed');
+    } else {
+      taskItem.classList.remove('task-completed');
+    }
+  });
+  const taskText = document.createElement('span');
+  taskText.textContent = text;
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Delete';
+  deleteButton.classList.add('delete-button');
+  deleteButton.addEventListener('click', e => {
+    // remove the task from the list and localStorage
+    const taskIndex = savedTasks.findIndex(task => task.text === text);
+    savedTasks.splice(taskIndex, 1);
+    localStorage.setItem('tasks', JSON.stringify(savedTasks));
+    taskItem.remove();
+  });
+  taskItem.appendChild(taskCheckbox);
+  taskItem.appendChild(taskText);
+  taskItem.appendChild(deleteButton);
+  if (completed) {
+    taskItem.classList.add('task-completed');
+  }
+  taskList.appendChild(taskItem);
+}
+
+// function to show the saved tasks in an alert
+function showSavedTasks() {
+  let message = '';
+  savedTasks.forEach(task => {
+    message += `- ${task.text}\n`;
+  });
+  alert(`Saved tasks:\n${message}`);
+}
+
+    </script>
+  </body>
+</html>

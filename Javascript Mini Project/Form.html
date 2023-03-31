@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+<title>Register</title>
+<style>
+ 
+ table,td,tr {
+	margin:15px;
+	padding:15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+input {
+    border: 5px white solid;
+    border-radius: 10px;
+}
+#btn,#btn1 {
+  height:50px;
+  width:80px;
+  background-color: crimson;
+  border:1px white;
+  border-radius:12px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+#btn:hover{
+  background-color: white;
+  font-size: 10px;
+}
+
+#btn1:hover {
+  background-color: white;
+  font-size: 10px;
+}
+
+h2{
+  color:white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+fieldset{
+    border:solid 5px lightblue;
+    background-color: cyan;
+    border-radius: 20px;
+    width: 300px;
+}
+</style>
+</head>
+<body>
+    <center>
+<fieldset>
+
+<table>
+<h2>Student Register Form</h2>
+<tr>
+<td>Name:</td>
+<td><input type ="text" id="name" name="name">
+</tr>
+<tr>
+<td>Age:</td>
+<td><input type ="text" id="age" name="age">
+</tr>
+<tr>
+<td>College Name:</td>
+<td><input type ="text" id="college" name="college"></td>
+</tr>
+<tr>
+<td>Email:</td>
+<td><input type ="email" id="email" name="email">
+</tr>
+<tr>
+<td>USN:</td>
+<td><input type ="text" id="usn" name="usn">
+</tr>
+<tr>
+<td>Username:</td>
+<td><input type ="text" id="username" name="username">
+</tr>
+<tr>
+<td>Gender:</td>
+<td><input type ="radio" id="radio" name="radio">Male <br>
+    <input type ="radio" id="radio" name="radio">Female <br>
+</td>
+</tr>
+<tr>
+<tr>
+<td>Date:</td>
+<td><input type ="date" id="date" name="date">
+</tr>
+<tr>
+<td>Password:</td>
+<td><input type ="password" id="password" name="password">
+</tr>
+<tr>
+<td>Check to Move Further :</td>
+<td><input type ="checkbox" id="password" name="password">Check Here
+</tr>
+<tr>
+<td>
+<input type = "submit" id="btn">
+</td>
+<td>
+<input type = "submit" id="btn1" value="Rest">
+</td>
+</tr>
+</table>
+
+</fieldset>
+</center>
+</body>
+<script>
+    let button = document.getElementById("btn")
+    let button1 = document.getElementById("btn1")
+
+    let name=  document.getElementById("name")
+    let email=  document.getElementById("email")
+    let usn=  document.getElementById("usn")
+    let username=  document.getElementById("username")
+    let college=  document.getElementById("college")
+    let age=  document.getElementById("age")
+    let password=  document.getElementById("password")
+    let date=  document.getElementById("date")
+    let radio=  document.getElementById("radio")
+
+    button.addEventListener("click",function(){
+        alert("Successfully Submited")
+    })
+
+    button1.addEventListener("click",function(){
+        name.value = ""
+        email.value = ""
+        usn.value = ""
+        username.value = ""
+        college.value = ""
+        age.value = ""
+        password.value = ""
+        date.value = ""
+        radio.value= ""
+    })
+</script>
+</html>

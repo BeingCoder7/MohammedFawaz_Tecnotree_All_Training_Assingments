@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather App</title>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #F5F5F5;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#location {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#weather {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Weather App</h1>
+    <p>Your current location:</p>
+    <div id="location"></div>
+    <p>Current weather:</p>
+    <div id="weather"></div>
+  </div>
+
+  <script>
+    const locationEl = document.getElementById('location');
+const weatherEl = document.getElementById('weather');
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getWeather);
+  } else {
+    locationEl.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function getWeather(position) {
+  const lat = position.coords.latitude;
+  const lon = position.coords.longitude;
+  const apiKey = 'e07d16d4e233e9ac8fc269cf1b56ccf3';
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+      locationEl.innerHTML = `${data.name}, ${data.sys.country}`;
+      weatherEl.innerHTML = `${Math.round(data.main.temp)}°C ${data.weather[0].description}`;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      locationEl.innerHTML = "Unable to retrieve location and weather data.";
+    });
+}
+
+getLocation();
+
+  </script>
+</body>
+</html>

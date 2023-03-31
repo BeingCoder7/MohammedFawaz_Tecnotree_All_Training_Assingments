@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        #input{
+            width: 85%;
+            height: 50px;
+            border-radius: 10px;
+            font-size: 30px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        fieldset{
+            width: 50%;
+            background-color: lightblue;
+            
+        }
+
+        legend{
+            color:darkblue;
+            font-size: 20px;
+            font-weight: bold;
+
+        }
+
+        .Btn {
+            font-size: 30px;
+            height: 45px;
+            width: 55px;
+            margin: 5px;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .Btn:hover{
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <fieldset>
+        <legend>Calculator</legend>
+        <input type="text" name="input" placeholder="0"  id="input"><br><br>
+        <input type="button" class = "Btn" onclick="clearScreen()" value="C" id="btn1"></input>
+        <input type="button" class = "Btn" onclick="clearChar()" value="X"  id="btn2"></input>
+        <input type="button" class = "Btn" onclick="operator('%')" id="btn3"></input>
+        <input type="button" class = "Btn" onclick="operator('/')" id="btn4"></input>
+        <br>
+        <input type="button" class = "Btn" onclick="printValue(7)" value=7 id="btn5"></input>
+        <input type="button" class = "Btn" onclick="printValue(8)" id="btn6"></input>
+        <input type="button" class = "Btn" onclick="printValue(9)" id="btn7"></input>
+        <input type="button" class = "Btn" onclick="operator('*')" id="btn8"></input>
+        <br>
+        <input type="button" class = "Btn" onclick="printValue(4)" id="btn9"></input>
+        <input type="button" class = "Btn" onclick="printValue(5)" id="btn10"></input>
+        <input type="button" class = "Btn" onclick="printValue(6)" id="btn11"></input>
+        <input type="button" class = "Btn" onclick="operator('-')" id="btn12"></input>
+        <br>
+        <input type="button" class = "Btn" onclick="printValue(1)" value=1 id="btn13"></input>
+        <input type="button" class = "Btn" onclick="printValue(2)" id="btn14"></input>
+        <input type="button" class = "Btn" onclick="printValue(3)" id="btn15"></input>
+        <input type="button" class = "Btn" onclick="operator('+') " id="btn16"></input>
+        <br>
+        <input type="button" class = "Btn" onclick="printValue(0)" id="btn17"></input>
+        <input type="button" class = "Btn" onclick="printValue('.')" id="btn18"></input>
+        <input type="button" class = "Btn"  onclick="result()" id="btn19" value="="></input>
+        <br>
+    </fieldset>
+</center>
+</body>
+<script>
+    let inp = document.getElementById("input")
+
+    let btn1 = document.getElementById("btn1")
+    let btn2 = document.getElementById("btn2")
+    let btn3 = document.getElementById("btn3").value = '%'
+    let btn4 = document.getElementById("btn4").value = '/'
+    let btn5 = document.getElementById("btn5").value = 7
+    let btn6 = document.getElementById("btn6").value = 8
+    let btn7 = document.getElementById("btn7").value = 9
+    let btn8 = document.getElementById("btn8").value = '*'
+    let btn9 = document.getElementById("btn9").value = 4
+    let btn10 = document.getElementById("btn10").value = 5
+    let btn11 = document.getElementById("btn11").value = 6
+    let btn12 = document.getElementById("btn12").value = '-'
+    let btn13 = document.getElementById("btn13").value = 1
+    let btn14 = document.getElementById("btn14").value = 2
+    let btn15 = document.getElementById("btn15").value = 3
+    let btn16 = document.getElementById("btn16").value = '+'
+    let btn17 = document.getElementById("btn17").value = 0
+    let btn18 = document.getElementById("btn18").value = '.'
+    let btn19= document.getElementById("btn19")
+
+
+let num1 = 0
+let op=''
+    function printValue(getValue){
+        inp.value = inp.value + getValue
+    }
+
+    function clearScreen(){
+        inp.value = ''
+    }
+    
+    function clearChar(){
+        let val = inp.value
+        inp.value = val.slice(0,val.length-1)
+    }
+
+    function operator(oper){
+        num1 = inp.value
+        op =oper
+        clearScreen()
+        inp.placeholder = num1
+    }
+    function result(){
+        let num2 = inp.value
+        switch(op){
+            case '+':inp.value = Number(num1) + Number(num2);
+                    break;
+            case '-':inp.value = num1 - num2;
+                    break;
+            case '*':inp.value = num1 * num2;
+                    break;
+            case '/':inp.value = num1 / num2;
+                    break;
+            case '%':inp.value = num1 % num2;
+                    break;
+            default:alert("Invalid Operator")
+        }
+    }
+
+
+
+    </script>
+</html>

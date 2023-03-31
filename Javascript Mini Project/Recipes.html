@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form id="recipe-search-form">
+  <label for="recipe-search-input">Search for a recipe:</label>
+  <input type="text" id="recipe-search-input" name="recipe-search-input">
+  <button type="submit">Search</button>
+</form>
+<div id="recipe-search-results"></div>
+<button id="show-saved-recipes-button">Show Saved Data</button>
+
+</body>
+<script>
+    const apiKey = '9b896cdd6c014decb7307a441f4502b4';
+
+// make a request to the API with your API key
+
+const apiUrl = 'https://api.spoonacular.com/recipes/search';
+
+const searchForm = document.querySelector('#recipe-search-form');
+const searchInput = document.querySelector('#recipe-search-input');
+const searchResultsContainer = document.querySelector('#recipe-search-results');
+
+searchForm.addEventListener('submit', e => {
+  e.preventDefault(); // prevent the form from submitting and refreshing the page
+
+  const searchString = searchInput.value; // get the user's search string
+
+  const searchUrl = `${apiUrl}?apiKey=${apiKey}&query=${searchString}`; // construct the API request URL
+
+  // make the API request using the user's search string
+  fetch(searchUrl)
+    .then(response => response.json())
+    .then(data => {
+      // clear any existing search results
+      searchResultsContainer.innerHTML = '';
+
+      // loop through each recipe in the search results and create an HTML element for it
+      data.results.forEach(recipe => {
+        const recipeElement = document.createElement('div');
+        recipeElement.classList.add('recipe');
+
+        // extract the image name from the image URL
+        const imageUrlParts = recipe.image.split('/');
+        const imageName = imageUrlParts[imageUrlParts.length - 1];
+
+        // construct the image URL with the recipe ID and image name
+        const imageUrl = `https://spoonacular.com/recipe/${recipe.id}-${imageName}`;
+
+        recipeElement.innerHTML = `
+          <h2>${recipe.title}</h2>
+          <img src="${imageUrl}" alt="${recipe.title}">
+          <p>Ready in ${recipe.readyInMinutes} minutes</p>
+          <p>Servings: ${recipe.servings}</p>
+          <button class="save-recipe-button" data-recipe-id="${recipe.id}">Save Recipe</button>
+        `;
+
+        // add the recipe element to the search results container
+        searchResultsContainer.appendChild(recipeElement);
+
+        // get the "Save Recipe" buttons and add a click event listener to each one
+const saveRecipeButtons = document.querySelectorAll('.save-recipe-button');
+saveRecipeButtons.forEach(button => {
+  button.addEventListener('click', e => {
+    e.preventDefault();
+
+    const recipeId = e.target.dataset.recipeId; // get the recipe ID from the button's data attribute
+    const recipeData = getRecipeDataById(recipeId); // get the recipe data from the API or localStorage
+
+    // save the recipe data to localStorage
+    const savedRecipes = getSavedRecipes();
+    savedRecipes.push(recipeData);
+    localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+
+    alert('Recipe saved!');
+  });
+});
+
+// function to get the recipe data by ID from the API or localStorage
+function getRecipeDataById(recipeId) {
+  // check if the recipe data is already in localStorage
+  const savedRecipes = getSavedRecipes();
+  const savedRecipe = savedRecipes.find(recipe => recipe.id == recipeId);
+  if (savedRecipe) {
+    return savedRecipe;
+  }
+
+  // if the recipe data is not in localStorage, make an API request to get it
+
+  const apiUrl = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`;
+
+  return fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      // add the recipe data to localStorage
+      const savedRecipes = getSavedRecipes();
+      savedRecipes.push(data);
+      localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+
+      return data;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+
+// function to get the saved recipes from localStorage
+function getSavedRecipes() {
+  const savedRecipesString = localStorage.getItem('savedRecipes');
+  if (savedRecipesString) {
+    return JSON.parse(savedRecipesString);
+  } else {
+    return [];
+  }
+}
+
+
+      });
+    })
+    .catch(error => {
+      // handle any errors
+      console.error(error);
+    });
+});
+
+// get the "Show Saved Recipes" button and add a click event listener to it
+const showSavedRecipesButton = document.getElementById('show-saved-recipes-button');
+showSavedRecipesButton.addEventListener('click', e => {
+  e.preventDefault();
+
+  // get the saved recipes from localStorage
+  const savedRecipesString = localStorage.getItem('savedRecipes');
+  const savedRecipes = JSON.parse(savedRecipesString);
+
+  // check if there are any saved recipes
+  if (savedRecipes && savedRecipes.length > 0) {
+    // display the saved recipes in an alert
+    let message = 'Saved Recipes:\n\n';
+    savedRecipes.forEach(recipe => {
+      message += `${recipe.title}\n`;
+    });
+    alert(message);
+  } else {
+    // display a message if there are no saved recipes
+    alert('No saved recipes.');
+  }
+});
+
+
+</script>
+</html>
