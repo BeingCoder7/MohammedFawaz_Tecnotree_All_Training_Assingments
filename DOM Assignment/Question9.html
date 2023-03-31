@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 9. When the form is submitted, prevent the default form
+submission behavior and display an alert with the values of the
+name and email input fields. -->
+    <form id="form" onsubmit="event.preventDefault()">
+        <label>Name</label>
+        <input type="text" name="name" id="text"><br><br>
+        <label>Email</label>
+        <input type="email" name="email" id="email"><br><br>
+        <button id="mybtn" onclick="printDetails()">Submit</button>
+        <button id="mybtn1" onclick="resetDetails()">Reset</button>
+    </form>
+</body>
+<script>
+    let forms = document.getElementById("form")
+    let button = document.getElementById("mybtn")
+    let button1 = document.getElementById("mybtn1")
+    let name = document.getElementById("text")
+    let email = document.getElementById("email")
+
+
+   function printDetails(){
+    alert("Name:"+ name.value)
+    alert("Email:"+ email.value)
+   }
+
+  function resetDetails(){
+        name.value = " "
+        email.value =" "
+   }
+</script>
+</html>

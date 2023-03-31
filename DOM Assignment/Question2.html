@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<<device-width>>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 2. Use JavaScript to add an event listener to the button -->
+    <p id="para">DOM Assignment</p>
+    <button id="myBtn">Click here</button>
+</body>
+<script>
+    let paragraph = document.getElementById("para")
+    let button = document.getElementById("myBtn")
+
+    button.addEventListener("click",function(){
+        paragraph.style.color = "blue"
+        paragraph.style.fontSize = "50px"
+        paragraph.style.fontStyle = "italic"
+        button.style.backgroundColor = "white"
+        button.style.fontStyle = "bold"
+        button.style.fontSize = "20px"
+        button.style.color  = "red"
+    })
+    
+
+</script>
+</html>

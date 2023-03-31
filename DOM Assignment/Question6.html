@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="body">
+    <!-- 6. When the new button is clicked, toggle the background color of
+the body between white and light gray. -->
+    <button id="myBtn">White</button>
+    <button id="myBtn1">Gray</button>
+
+</body>
+<script>
+    let button = document.getElementById("myBtn")
+    let button1 = document.getElementById("myBtn1")
+    let Body = document.getElementById("body")
+    button.addEventListener("click",function(){
+       Body.style.backgroundColor = "white"
+    })
+
+    button1.addEventListener("click",function(){
+       Body.style.backgroundColor = "gray"
+    })
+
+</script>
+</html>

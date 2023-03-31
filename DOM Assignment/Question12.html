@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 12. When an item in the list is clicked, add the "selected" class to
+the clicked item and remove the "selected" class from all other
+items in the list. -->
+<h1>Fruits</h1>
+<ul id="myList">
+    <li>Apple</li>
+    <li>Kiwi</li>
+    <li>Mango</li>
+</ul>
+<button id="myButton">Add List Item</button>
+<button id="myButton1">remove</button>
+
+</body>
+<script>
+    let list = document.getElementById("myList");
+    let button = document.getElementById("myButton")
+    let button1 = document.getElementById("myButton1")
+   
+    button.addEventListener("click",function(){
+        let newItem = document.createElement("li")
+        let item = prompt("Enter new Item:");
+         newItem.textContent = item;
+        newItem.classList.add("selected")
+        list.appendChild(newItem);
+})
+
+let i =3
+button1.addEventListener("click",function(){
+        let li = document.getElementsByTagName("li")[i]
+        if(li==undefined){
+            alert("Please add Items")
+            return;
+        }
+        if(li.classList.contains("selected"))
+            li.classList.remove("selected")
+        i++
+})
+</script>
+</html>

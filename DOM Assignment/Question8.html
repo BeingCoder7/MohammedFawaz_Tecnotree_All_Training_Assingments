@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 8. Use JavaScript to add an event listener to the form. -->
+    <form id="form">
+        <label>Name</label>
+        <input type="text" name="name" id="text"><br><br>
+        <label>Email</label>
+        <input type="email" name="email" id="email"><br><br>
+        <button id="mybtn">Submit</button>
+        <button id="mybtn1">Reset</button>
+    </form>
+</body>
+<script>
+    let forms = document.getElementById("form")
+    let button = document.getElementById("mybtn")
+    let button1 = document.getElementById("mybtn1")
+    button.addEventListener("click",function(){
+        alert("Submit button Clicked!")
+    })
+
+    button1.addEventListener("click",function(){
+        alert("Reset button Clicked!")
+    })
+</script>
+</html>
