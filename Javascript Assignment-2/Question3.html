@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+let today = new Date();
+
+let day = today.getDate();
+let month = today.getMonth() + 1; // JavaScript months are 0-11
+let year = today.getFullYear();
+
+let format = prompt("Enter date format (1: mm-dd-yyyy, 2: mm/dd/yyyy, 3: dd-mm-yyyy, 4: dd/mm/yyyy):");
+let formattedDate = ""
+switch (format) {
+  case "1":
+     formattedDate = month + "-" + day + "-" + year;
+    break;
+  case "2":
+     formattedDate = month + "/" + day + "/" + year;
+    break;
+  case "3":
+     formattedDate = day + "-" + month + "-" + year;
+    break;
+  case "4":
+     formattedDate = day + "/" + month + "/" + year;
+    break;
+  default:
+     formattedDate = "Invalid date format";
+}
+
+
+console.log(formattedDate);
+
+</script>
+</html>
+

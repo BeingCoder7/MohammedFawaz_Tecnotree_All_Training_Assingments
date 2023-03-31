@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+let currentDate = new Date();
+
+let christmasYear = currentDate.getFullYear();
+if (currentDate.getMonth() == 11 && currentDate.getDate() > 25) {
+  christmasYear++;
+}
+
+let christmasDate = new Date(christmasYear, 11, 25);
+
+
+let timeDiff = christmasDate.getTime() - currentDate.getTime();
+let daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+console.log("There are " + daysLeft + " days left until Christmas.");
+
+</script>
+</html>
